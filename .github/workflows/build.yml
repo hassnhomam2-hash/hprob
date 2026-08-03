@@ -28,10 +28,18 @@ jobs:
       
       - name: Accept Android SDK licenses
         run: |
-          yes | sdkmanager --licenses --sdk_root=/home/runner/.buildozer/android/platform/android-sdk 2>/dev/null || true
           mkdir -p /home/runner/.buildozer/android/platform/android-sdk/licenses
           echo -e "24333f8a63b6825ea9c5514f83c2829b004d1fee" > /home/runner/.buildozer/android/platform/android-sdk/licenses/android-sdk-license
-          echo -e "d56f5187479451eabf01fb78af6dfcb131a6481e" >> /home/runner/.buildozer/android/platform/android-sdk/licenses/android-sdk-license
+      
+      - name: Install Android SDK Command Line Tools
+        run: |
+          cd /home/runner/.buildozer/android/platform/android-sdk
+          curl -OL https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
+          unzip -q commandlinetools-linux-11076708_latest.zip
+          mkdir -p cmdline-tools
+          mv cmdline-tools latest
+          mkdir cmdline-tools
+          mv latest cmdline-tools/
       
       - name: Build APK
         run: buildozer android debug
