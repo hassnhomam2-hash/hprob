@@ -7,27 +7,29 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.10"
       
-      - name: List files
-        run: ls -la
-      
       - name: Install system dependencies
         run: |
           sudo apt update
-          sudo apt install -y python3-pip python3-dev openjdk-17-jdk git autoconf libtool pkg-config zlib1g-dev libncurses-dev cmake libffi-dev libssl-dev gfortran unzip
+          sudo apt install -y python3-pip python3-dev git autoconf libtool pkg-config zlib1g-dev libncurses-dev cmake libffi-dev libssl-dev gfortran unzip
       
       - name: Install Buildozer
         run: pip install buildozer cython
       
       - name: Build APK
-        run: |
-          pwd
-          ls -la
-          buildozer android debug
+        run: buildozer android debug
+        env:
+          BUILDozer_ACCEPT_SDK_LICENSE: true
       
       - name: Upload APK
         uses: actions/upload-artifact@v4
