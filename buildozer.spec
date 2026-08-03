@@ -28,7 +28,7 @@ icon.filename = %(source.dir)s/icon.jpg
 # (str) Supported orientations (one of landscape, sensorLandscape, portrait or all)
 orientation = portrait
 
-# (list) Permissions (remove the '#' if your app needs internet access)
+# (list) Permissions
 #android.permissions = INTERNET
 
 # (int) Target Android API (33 is currently required by Google Play)
@@ -40,9 +40,11 @@ android.minapi = 21
 # (str) Android NDK version to use
 android.ndk = 25b
 
+# (bool) automatically accept SDK license
+android.accept_sdk_license = True
+
 # (bool) Indicate if the application should be fullscreen or not
 fullscreen = 0
-
 
 [buildozer]
 
